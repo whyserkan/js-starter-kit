@@ -4,11 +4,15 @@
   "description": "This is a boilerplate for complete js env.",
   "scripts": {
     "prestart": "babel-node buildScripts/preStart.js",
-    "start": "npm-run-all --parallel security-check start:src",
+    "start": "npm-run-all --parallel security-check start:src lint:watch test:watch",
     "start:src": "babel-node buildScripts/srcServer.js",
     "security-check": "nsp check",
     "localtunnel": "lt -p 3001 -s serkan",
-    "share": "npm-run-all --parallel start:src localtunnel"
+    "share": "npm-run-all --parallel start:src localtunnel",
+    "lint": "esw webpack.config.* src buildScripts --color",
+    "lint:watch": "npm run lint -- --watch",
+    "test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.test.js\"",
+    "test:watch": "npm test -- --watch"
   },
   "author": "Serkan Ersoy",
   "license": "MIT",
